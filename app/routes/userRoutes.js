@@ -15,17 +15,8 @@ userRouter.get("/profile", authToken, GetAllUsers);
 // create a new user
 userRouter.post("/register", Register);
 
-// Render the signup page
-userRouter.get("/signup", (req, res) => {
-  res.render("register");
-});
-
 // Login user
 userRouter.post("/login", login);
-
-userRouter.get("/login", (req, res) => {
-  res.render("login");
-});
 
 // logout user
 userRouter.post("/logout", logout);
