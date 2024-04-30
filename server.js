@@ -4,7 +4,13 @@ import userRoutes from "./src/routes/userRoutes.js";
 import dotenv from "dotenv";
 import mongoDBConnection from "./src/config/database.js";
 import cookieParser from "cookie-parser";
+import { fileURLToPath } from "url";
+import path from "path";
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+console.log(__dirname);
+console.log(__filename);
 const app = express();
 
 // middlewares
@@ -17,6 +23,11 @@ mongoDBConnection();
 
 // environment configuration
 dotenv.config();
+
+// View engine setup
+app.set("view engine", "ejs");
+app.set("views", path.join(__dirname, "src", "views"));
+app.use(express.static(path.join(__dirname, "public")));
 
 // routes
 app.use("/api", userRoutes);
