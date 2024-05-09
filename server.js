@@ -1,6 +1,7 @@
 import express from "express";
 import bodyParser from "body-parser";
 import userRoutes from "./app/routes/userRoutes.js";
+import fileRoutes from "./app/routes/fileRoutes.js";
 import dotenv from "dotenv";
 import mongoDBConnection from "./app/config/database.js";
 import cookieParser from "cookie-parser";
@@ -31,6 +32,7 @@ dotenv.config();
 
 // routes
 app.use("/api", userRoutes);
+app.use("/api", fileRoutes);
 
 // app configuration
 const port = process.env.PORT || 4000;
