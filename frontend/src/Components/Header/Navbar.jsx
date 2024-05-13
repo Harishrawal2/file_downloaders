@@ -16,9 +16,9 @@ export default function Navbar() {
         <Link to="/pricing">Pricing</Link>
       </div>
 
-      <div className="flex items-center gap-10 cursor-pointer">
+      <div className="flex items-center gap-5 cursor-pointer">
         <Link to="/signin">Signup</Link>
-        <Link to="/signup">Signout</Link>
+        <Link to="/signup">Signin</Link>
       </div>
     </div>
   );

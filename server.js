@@ -5,6 +5,7 @@ import fileRoutes from "./app/routes/fileRoutes.js";
 import dotenv from "dotenv";
 import mongoDBConnection from "./app/config/database.js";
 import cookieParser from "cookie-parser";
+import cors from "cors";
 // import { fileURLToPath } from "url";
 // import path from "path";
 
@@ -18,6 +19,7 @@ const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
+app.use(cors());
 
 // Mongodb connection
 mongoDBConnection();
