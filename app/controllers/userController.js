@@ -9,7 +9,7 @@ export const Register = async (req, res) => {
     // Validate user input
     if (!name || !email || !password) {
       return res
-        .status(400)
+        .status(401)
         .json({ message: "Name, email, and password are required" });
     }
 
@@ -17,7 +17,7 @@ export const Register = async (req, res) => {
     const existingUser = await User.findOne({ email });
     // Check if the user is already in the database
     if (existingUser) {
-      return res.status(401).json({ message: "User already exists" });
+      res.status(401).json({ message: "User already exists" });
     }
 
     // bcrypt the password
