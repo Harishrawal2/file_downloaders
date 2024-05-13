@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 export default function Signin() {
   const [user, setUser] = useState({
@@ -8,16 +9,34 @@ export default function Signin() {
     password: "",
   });
 
+  const navigate = useNavigate();
+
   const InputChange = (e) => {
-    const { name, value } = e.target.value;
+    const { name, value } = e.target;
     setUser({
       ...user,
       [name]: value,
     });
   };
 
-  const handleSubmit = async () => {
-    const response = await axios.post("http://localhost:5000/api/login");
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post(
+        "http://localhost:5000/api/login",
+        user
+      );
+      console.log("Login successfully!", response.data);
+      toast.success(response.data.message);
+      setUser({ email: "", password: "" });
+      navigate("/");
+    } catch (error) {
+      if (error.response) {
+        toast.error(error.response.data.message);
+      } else {
+        toast.error("No response received from server");
+      }
+    }
   };
 
   return (
@@ -26,7 +45,10 @@ export default function Signin() {
         <div className="mb-5 font-bold text-center text-2xl text-opacity-1">
           <h1>Sign In</h1>
         </div>
-        <form className="flex flex-col gap-5 w-[100%]">
+        <form
+          className="flex flex-col gap-5 w-[100%] text-gray-500"
+          onSubmit={handleSubmit}
+        >
           <input
             type="email"
             className="py-2 px-2 rounded-full"

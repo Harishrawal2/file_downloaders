@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, Navigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import toast from "react-hot-toast";
 
@@ -9,6 +9,8 @@ export default function Signup() {
     email: "",
     password: "",
   });
+
+  const navigate = useNavigate();
 
   const InputChange = (e) => {
     const { name, value } = e.target;
@@ -28,7 +30,7 @@ export default function Signup() {
       console.log("User data submitted successfully!", response.data);
       toast.success(response.data.message);
       setUser({ name: "", email: "", password: "" });
-      Navigate("/signin");
+      navigate("/signin");
     } catch (error) {
       if (error.response) {
         toast.error(error.response.data.message);

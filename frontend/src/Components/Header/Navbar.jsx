@@ -1,7 +1,15 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Navbar() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    setIsLoggedIn(false);
+    navigate("/signin");
+  };
+
   return (
     <div className="bg-slate-900 flex justify-between items-center px-20 p-5 text-xl">
       <div className="text-2xl">
@@ -17,8 +25,14 @@ export default function Navbar() {
       </div>
 
       <div className="flex items-center gap-5 cursor-pointer">
-        <Link to="/signin">Signup</Link>
-        <Link to="/signup">Signin</Link>
+        {isLoggedIn ? (
+          <button onClick={handleLogout}>Logout</button>
+        ) : (
+          <>
+            <Link to="/signin">Signin</Link>
+            <Link to="/signup">Signup</Link>
+          </>
+        )}
       </div>
     </div>
   );
